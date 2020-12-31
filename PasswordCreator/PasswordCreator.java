@@ -5,15 +5,17 @@ import javax.swing.*;
 import java.io.*;
 import java.awt.event.*;
 import javax.swing.event.*;
+import java.util.Random;
 
 public class PasswordCreator implements ActionListener{
+  Random rand = new Random();
   PrintWriter pw = new PrintWriter(System.out,true);
   JButton buttonCreate;
   JCheckBox capitals, symbols, numbers;
   JTextField password; // = new JTextField();
   JComboBox<String> fileTXTOrHere;
   Color backG = new Color(254, 248, 221);
-  boolean includeCapitals, includeSymbols, includeNumbers = false;
+  boolean includeCapitals, includeSymbols, includeNumbers = true;
 
   String[] list = {"Create password here", "Create password in txt file"};
 
@@ -31,21 +33,21 @@ public class PasswordCreator implements ActionListener{
     buttonCreate = new JButton("GENERATE");
     buttonCreate.addActionListener(this);
 
-    capitals = new JCheckBox("capitals");
+    capitals = new JCheckBox("capitals", true);
     capitals.addItemListener(new ItemListener() {
       public void itemStateChanged(ItemEvent event) {
         includeCapitals = true;
       }
     });
 
-    symbols = new JCheckBox("symbols");
+    symbols = new JCheckBox("symbols", true);
     symbols.addItemListener(new ItemListener() {
       public void itemStateChanged(ItemEvent event) {
         includeSymbols = true;
       }
     });
 
-    numbers = new JCheckBox("numbers");
+    numbers = new JCheckBox("numbers", true);
     numbers.addItemListener(new ItemListener() {
       public void itemStateChanged(ItemEvent event) {
         includeNumbers = true;
@@ -71,7 +73,17 @@ public class PasswordCreator implements ActionListener{
 
   public void actionPerformed(ActionEvent ae) {
     if(ae.getActionCommand().equals("GENERATE")) {
-      password.setText("creating pass");
+      password.setText("");
+      if(capitals.isSelected() & symbols.isSelected() & numbers.isSelected()) {
+        String answer = "";
+        for(int i = 0; i < 5; i++) {
+          int character = rand.nextInt(126 - 33) + 33;
+          answer += (char)character;
+        }
+        password.setText("");
+        password.setText(answer);
+      }
+
       if(fileTXTOrHere.getItemAt(fileTXTOrHere.getSelectedIndex()).equals(list[1])) {
         password.setText("Input name of file");
       }
