@@ -80,7 +80,111 @@ public class PasswordCreator implements ActionListener{
           int character = rand.nextInt(126 - 33) + 33;
           answer += (char)character;
         }
-        password.setText("");
+        password.setText(answer);
+      }
+
+      if(!capitals.isSelected() & !symbols.isSelected() & !numbers.isSelected()) {
+        String answer = "";
+        for(int i = 0; i < 5; i++) {
+          int character = rand.nextInt(122 - 97) + 97;
+          answer += (char)character;
+        }
+        password.setText(answer);
+      }
+
+      if((!capitals.isSelected()) & symbols.isSelected() & numbers.isSelected()) {
+        String answer = "";
+        for(int i = 0; i < 5; i++) {
+          int characterFirstBound = rand.nextInt(64 - 33) + 33;
+          int characterSecondBound = rand.nextInt(126 - 91) + 91;
+          boolean choosingOneFromFirstAndSecond = rand.nextBoolean();
+          if(choosingOneFromFirstAndSecond) {
+            answer += (char) characterFirstBound;
+          } else {
+            answer += (char) characterSecondBound;
+          }
+        }
+        password.setText(answer);
+      }
+
+      if(capitals.isSelected() & (!symbols.isSelected()) & numbers.isSelected()) {
+        String answer = "";
+        for(int i = 0; i < 5; i++) {
+          int characterFirstBound = rand.nextInt(90 - 65) + 65;
+          int characterSecondBound = rand.nextInt(122 - 97) + 97;
+          int characterThirdBound = rand.nextInt(57 - 48) + 48;
+          int choosingOneFromFirstAndSecondAndThird = rand.nextInt(3);
+          if(choosingOneFromFirstAndSecondAndThird == 0) {
+            answer += (char) characterFirstBound;
+          } else if(choosingOneFromFirstAndSecondAndThird == 1) {
+            answer += (char) characterSecondBound;
+          } else if(choosingOneFromFirstAndSecondAndThird == 2) {
+            answer += (char) characterThirdBound;
+          }
+        }
+        password.setText(answer);
+      }
+
+      if(capitals.isSelected() & symbols.isSelected() & (!numbers.isSelected())) {
+        String answer = "";
+        for(int i = 0; i < 5; i++) {
+          int characterFirstBound = rand.nextInt(47 - 33) + 33;
+          int characterSecondBound = rand.nextInt(126 - 58) + 58;
+          boolean choosingOneFromFirstAndSecond = rand.nextBoolean();
+          if(choosingOneFromFirstAndSecond) {
+            answer += (char) characterFirstBound;
+          } else {
+            answer += (char) characterSecondBound;
+          }
+        }
+        password.setText(answer);
+      }
+
+      if((!capitals.isSelected()) & (!symbols.isSelected()) & numbers.isSelected()) {
+        String answer = "";
+        for(int i = 0; i < 5; i++) {
+          int characterFirstBound = rand.nextInt(57 - 48) + 48;
+          int characterSecondBound = rand.nextInt(122 - 97) + 97;
+          boolean choosingOneFromFirstAndSecond = rand.nextBoolean();
+          if(choosingOneFromFirstAndSecond) {
+            answer += (char) characterFirstBound;
+          } else {
+            answer += (char) characterSecondBound;
+          }
+        }
+        password.setText(answer);
+      }
+
+      if(capitals.isSelected() & (!symbols.isSelected()) & (!numbers.isSelected())) {
+        String answer = "";
+        for(int i = 0; i < 5; i++) {
+          int characterFirstBound = rand.nextInt(90 - 65) + 65;
+          int characterSecondBound = rand.nextInt(122 - 97) + 97;
+          boolean choosingOneFromFirstAndSecond = rand.nextBoolean();
+          if(choosingOneFromFirstAndSecond) {
+            answer += (char) characterFirstBound;
+          } else {
+            answer += (char) characterSecondBound;
+          }
+        }
+        password.setText(answer);
+      }
+
+      if((!capitals.isSelected()) & symbols.isSelected() & (!numbers.isSelected())) {
+        String answer = "";
+        for(int i = 0; i < 5; i++) {
+          int characterFirstBound = rand.nextInt(47 - 33) + 33;
+          int characterSecondBound = rand.nextInt(126 - 91) + 91;
+          int characterThirdBound = rand.nextInt(64 - 58) + 58;
+          int choosingOneFromFirstAndSecondAndThird = rand.nextInt(3);
+          if(choosingOneFromFirstAndSecondAndThird == 0) {
+            answer += (char) characterFirstBound;
+          } else if(choosingOneFromFirstAndSecondAndThird == 1) {
+            answer += (char) characterSecondBound;
+          } else if(choosingOneFromFirstAndSecondAndThird == 2) {
+            answer += (char) characterThirdBound;
+          }
+        }
         password.setText(answer);
       }
 
@@ -88,7 +192,6 @@ public class PasswordCreator implements ActionListener{
         password.setText("Input name of file");
       }
     }
-
   }
 
   public static void main(String[] args) {
