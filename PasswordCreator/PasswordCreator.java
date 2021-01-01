@@ -12,10 +12,12 @@ public class PasswordCreator implements ActionListener{
   PrintWriter pw = new PrintWriter(System.out,true);
   JButton buttonCreate;
   JCheckBox capitals, symbols, numbers;
-  JTextField password; // = new JTextField();
+  JTextField password, lengthOfPassword;
   JComboBox<String> fileTXTOrHere;
+  JLabel message;
   Color backG = new Color(254, 248, 221);
   boolean includeCapitals, includeSymbols, includeNumbers = true;
+  Checkings checks = new Checkings();
 
   String[] list = {"Create password here", "Create password in txt file"};
 
@@ -24,12 +26,12 @@ public class PasswordCreator implements ActionListener{
     JFrame frame = new JFrame("Password Creator");
 
     // adding some options to frame
-    frame.setLayout(new FlowLayout()); // I might change it
-    frame.setSize(500, 400);
+    frame.setLayout(new FlowLayout());
+    frame.setSize(300, 200);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.getContentPane().setBackground(backG);
 
-    // configuring and adding other components
+    // configuring components
     buttonCreate = new JButton("GENERATE");
     buttonCreate.addActionListener(this);
 
@@ -55,16 +57,22 @@ public class PasswordCreator implements ActionListener{
     });
 
     password = new JTextField(20);
+    lengthOfPassword = new JTextField(5);
+
+    message = new JLabel("<html>Input here the length of the <br> password(10 by default)<html>");
 
     fileTXTOrHere = new JComboBox<String>(list);
     fileTXTOrHere.addActionListener(this);
 
-    frame.add(buttonCreate);
+    // adding components
     frame.add(capitals);
     frame.add(symbols);
     frame.add(numbers);
-    frame.add(password);
+    frame.add(message);
+    frame.add(lengthOfPassword);
     frame.add(fileTXTOrHere);
+    frame.add(password);
+    frame.add(buttonCreate);
 
     // making frame visible
     frame.setVisible(true);
@@ -73,123 +81,91 @@ public class PasswordCreator implements ActionListener{
 
   public void actionPerformed(ActionEvent ae) {
     if(ae.getActionCommand().equals("GENERATE")) {
+      int length = 10;
+      try {
+        length = Integer.parseInt(lengthOfPassword.getText());
+      } catch(NumberFormatException exc) {
+        lengthOfPassword.setText("10");
+      }
       password.setText("");
       if(capitals.isSelected() & symbols.isSelected() & numbers.isSelected()) {
-        String answer = "";
-        for(int i = 0; i < 5; i++) {
-          int character = rand.nextInt(126 - 33) + 33;
-          answer += (char)character;
-        }
-        password.setText(answer);
+        password.setText(checks.allOn(length));
       }
 
       if(!capitals.isSelected() & !symbols.isSelected() & !numbers.isSelected()) {
-        String answer = "";
-        for(int i = 0; i < 5; i++) {
-          int character = rand.nextInt(122 - 97) + 97;
-          answer += (char)character;
-        }
-        password.setText(answer);
+        password.setText(checks.allOFF(length));
       }
 
       if((!capitals.isSelected()) & symbols.isSelected() & numbers.isSelected()) {
-        String answer = "";
-        for(int i = 0; i < 5; i++) {
-          int characterFirstBound = rand.nextInt(64 - 33) + 33;
-          int characterSecondBound = rand.nextInt(126 - 91) + 91;
-          boolean choosingOneFromFirstAndSecond = rand.nextBoolean();
-          if(choosingOneFromFirstAndSecond) {
-            answer += (char) characterFirstBound;
-          } else {
-            answer += (char) characterSecondBound;
-          }
-        }
-        password.setText(answer);
+        password.setText(checks.symbolsAndNumbersOn(length));
       }
 
       if(capitals.isSelected() & (!symbols.isSelected()) & numbers.isSelected()) {
-        String answer = "";
-        for(int i = 0; i < 5; i++) {
-          int characterFirstBound = rand.nextInt(90 - 65) + 65;
-          int characterSecondBound = rand.nextInt(122 - 97) + 97;
-          int characterThirdBound = rand.nextInt(57 - 48) + 48;
-          int choosingOneFromFirstAndSecondAndThird = rand.nextInt(3);
-          if(choosingOneFromFirstAndSecondAndThird == 0) {
-            answer += (char) characterFirstBound;
-          } else if(choosingOneFromFirstAndSecondAndThird == 1) {
-            answer += (char) characterSecondBound;
-          } else if(choosingOneFromFirstAndSecondAndThird == 2) {
-            answer += (char) characterThirdBound;
-          }
-        }
-        password.setText(answer);
+        password.setText(checks.capitalsAndNumbersOn(length));
       }
 
       if(capitals.isSelected() & symbols.isSelected() & (!numbers.isSelected())) {
-        String answer = "";
-        for(int i = 0; i < 5; i++) {
-          int characterFirstBound = rand.nextInt(47 - 33) + 33;
-          int characterSecondBound = rand.nextInt(126 - 58) + 58;
-          boolean choosingOneFromFirstAndSecond = rand.nextBoolean();
-          if(choosingOneFromFirstAndSecond) {
-            answer += (char) characterFirstBound;
-          } else {
-            answer += (char) characterSecondBound;
-          }
-        }
-        password.setText(answer);
+        password.setText(checks.capitalsAndSymbolsOn(length));
       }
 
       if((!capitals.isSelected()) & (!symbols.isSelected()) & numbers.isSelected()) {
-        String answer = "";
-        for(int i = 0; i < 5; i++) {
-          int characterFirstBound = rand.nextInt(57 - 48) + 48;
-          int characterSecondBound = rand.nextInt(122 - 97) + 97;
-          boolean choosingOneFromFirstAndSecond = rand.nextBoolean();
-          if(choosingOneFromFirstAndSecond) {
-            answer += (char) characterFirstBound;
-          } else {
-            answer += (char) characterSecondBound;
-          }
-        }
-        password.setText(answer);
+        password.setText(checks.numbersOn(length));
       }
 
       if(capitals.isSelected() & (!symbols.isSelected()) & (!numbers.isSelected())) {
-        String answer = "";
-        for(int i = 0; i < 5; i++) {
-          int characterFirstBound = rand.nextInt(90 - 65) + 65;
-          int characterSecondBound = rand.nextInt(122 - 97) + 97;
-          boolean choosingOneFromFirstAndSecond = rand.nextBoolean();
-          if(choosingOneFromFirstAndSecond) {
-            answer += (char) characterFirstBound;
-          } else {
-            answer += (char) characterSecondBound;
-          }
-        }
-        password.setText(answer);
+        password.setText(checks.capitalsOn(length));
       }
 
       if((!capitals.isSelected()) & symbols.isSelected() & (!numbers.isSelected())) {
-        String answer = "";
-        for(int i = 0; i < 5; i++) {
-          int characterFirstBound = rand.nextInt(47 - 33) + 33;
-          int characterSecondBound = rand.nextInt(126 - 91) + 91;
-          int characterThirdBound = rand.nextInt(64 - 58) + 58;
-          int choosingOneFromFirstAndSecondAndThird = rand.nextInt(3);
-          if(choosingOneFromFirstAndSecondAndThird == 0) {
-            answer += (char) characterFirstBound;
-          } else if(choosingOneFromFirstAndSecondAndThird == 1) {
-            answer += (char) characterSecondBound;
-          } else if(choosingOneFromFirstAndSecondAndThird == 2) {
-            answer += (char) characterThirdBound;
-          }
-        }
-        password.setText(answer);
+        password.setText(checks.symbolsOn(length));
       }
+    }
+    if(fileTXTOrHere.getItemAt(fileTXTOrHere.getSelectedIndex()).equals(list[1])) {
+      password.setText("Password is in password.txt");
+      if(ae.getActionCommand().equals("GENERATE")) {
+        String input = password.getText();
+        try(FileWriter fw = new FileWriter("password.txt")) {
+          int length = 10;
+          try {
+            length = Integer.parseInt(lengthOfPassword.getText());
+          } catch(NumberFormatException exc) {
+            lengthOfPassword.setText("10");
+          }
+          if(capitals.isSelected() & symbols.isSelected() & numbers.isSelected()) {
+            fw.write(checks.allOn(length));
+          }
 
-      if(fileTXTOrHere.getItemAt(fileTXTOrHere.getSelectedIndex()).equals(list[1])) {
-        password.setText("Input name of file");
+          if(!capitals.isSelected() & !symbols.isSelected() & !numbers.isSelected()) {
+            fw.write(checks.allOFF(length));
+          }
+
+          if((!capitals.isSelected()) & symbols.isSelected() & numbers.isSelected()) {
+            fw.write(checks.symbolsAndNumbersOn(length));
+          }
+
+          if(capitals.isSelected() & (!symbols.isSelected()) & numbers.isSelected()) {
+            fw.write(checks.capitalsAndNumbersOn(length));
+          }
+
+          if(capitals.isSelected() & symbols.isSelected() & (!numbers.isSelected())) {
+            fw.write(checks.capitalsAndSymbolsOn(length));
+          }
+
+          if((!capitals.isSelected()) & (!symbols.isSelected()) & numbers.isSelected()) {
+            fw.write(checks.numbersOn(length));
+          }
+
+          if(capitals.isSelected() & (!symbols.isSelected()) & (!numbers.isSelected())) {
+            fw.write(checks.capitalsOn(length));
+          }
+
+          if((!capitals.isSelected()) & symbols.isSelected() & (!numbers.isSelected())) {
+            fw.write(checks.symbolsOn(length));
+          }
+          fw.close();
+        } catch(IOException exc) {
+          password.setText("Input/Output exception");
+        }
       }
     }
   }
