@@ -8,11 +8,13 @@ public class Checkings {
   // all these methods return String which is the password for different cases
   public String allOn(int length) {
     String answer = "";
+    point :
     for(int i = 0; i < length; i++) {
       int character = rand.nextInt(126 - 33) + 33;
+      if(character == 64) continue point;
       answer += (char)character;
     }
-      return answer;
+    return answer;
   }
 
   public String allOFF(int length) {
@@ -26,9 +28,11 @@ public class Checkings {
 
   public String symbolsAndNumbersOn(int length) {
     String answer = "";
+    point :
     for(int i = 0; i < length; i++) {
       int characterFirstBound = rand.nextInt(64 - 33) + 33;
       int characterSecondBound = rand.nextInt(126 - 91) + 91;
+      if(characterFirstBound == 64 || characterSecondBound == 64) continue point;
       boolean choosingOneFromFirstAndSecond = rand.nextBoolean();
       if(choosingOneFromFirstAndSecond) {
         answer += (char) characterFirstBound;
@@ -41,11 +45,13 @@ public class Checkings {
 
   public String capitalsAndNumbersOn(int length) {
     String answer = "";
+    point :
     for(int i = 0; i < length; i++) {
       int characterFirstBound = rand.nextInt(90 - 65) + 65;
       int characterSecondBound = rand.nextInt(122 - 97) + 97;
       int characterThirdBound = rand.nextInt(57 - 48) + 48;
       int choosingOneFromFirstAndSecondAndThird = rand.nextInt(3);
+      if(characterFirstBound == 64 || characterSecondBound == 64 || characterThirdBound == 64) continue point;
       if(choosingOneFromFirstAndSecondAndThird == 0) {
         answer += (char) characterFirstBound;
       } else if(choosingOneFromFirstAndSecondAndThird == 1) {
@@ -59,10 +65,12 @@ public class Checkings {
 
   public String capitalsAndSymbolsOn(int length){
     String answer = "";
+    point :
     for(int i = 0; i < length; i++) {
       int characterFirstBound = rand.nextInt(47 - 33) + 33;
       int characterSecondBound = rand.nextInt(126 - 58) + 58;
       boolean choosingOneFromFirstAndSecond = rand.nextBoolean();
+      if(characterFirstBound == 64 || characterSecondBound == 64) continue point;
       if(choosingOneFromFirstAndSecond) {
         answer += (char) characterFirstBound;
       } else {
@@ -89,9 +97,11 @@ public class Checkings {
 
   public String capitalsOn(int length) {
     String answer = "";
+    point :
     for(int i = 0; i < length; i++) {
       int characterFirstBound = rand.nextInt(90 - 65) + 65;
       int characterSecondBound = rand.nextInt(122 - 97) + 97;
+      if(characterFirstBound == 64 || characterSecondBound == 64) continue point;
       boolean choosingOneFromFirstAndSecond = rand.nextBoolean();
       if(choosingOneFromFirstAndSecond) {
         answer += (char) characterFirstBound;
@@ -104,10 +114,12 @@ public class Checkings {
 
   public String symbolsOn(int length) {
     String answer = "";
+    point :
     for(int i = 0; i < length; i++) {
       int characterFirstBound = rand.nextInt(47 - 33) + 33;
       int characterSecondBound = rand.nextInt(126 - 91) + 91;
       int characterThirdBound = rand.nextInt(64 - 58) + 58;
+      if(characterFirstBound == 64 || characterSecondBound == 64 || characterThirdBound == 64) continue point;
       int choosingOneFromFirstAndSecondAndThird = rand.nextInt(3);
       if(choosingOneFromFirstAndSecondAndThird == 0) {
         answer += (char) characterFirstBound;
