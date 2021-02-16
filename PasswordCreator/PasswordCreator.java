@@ -27,13 +27,14 @@ public class PasswordCreator implements ActionListener{
 
     // adding some options to frame
     frame.setLayout(new FlowLayout());
-    frame.setSize(300, 200);
+    frame.setSize(500, 300);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.getContentPane().setBackground(backG);
 
     // configuring components
     buttonCreate = new JButton("GENERATE");
     buttonCreate.addActionListener(this);
+    buttonCreate.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
 
     capitals = new JCheckBox("capitals", true);
     capitals.addItemListener(new ItemListener() {
@@ -41,6 +42,7 @@ public class PasswordCreator implements ActionListener{
         includeCapitals = true;
       }
     });
+    capitals.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
 
     symbols = new JCheckBox("symbols", true);
     symbols.addItemListener(new ItemListener() {
@@ -48,6 +50,7 @@ public class PasswordCreator implements ActionListener{
         includeSymbols = true;
       }
     });
+    symbols.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
 
     numbers = new JCheckBox("numbers", true);
     numbers.addItemListener(new ItemListener() {
@@ -55,14 +58,19 @@ public class PasswordCreator implements ActionListener{
         includeNumbers = true;
       }
     });
+    numbers.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
 
     password = new JTextField(20);
+    password.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
     lengthOfPassword = new JTextField(5);
+    lengthOfPassword.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
 
     message = new JLabel("<html>Input here the length of the <br> password(10 by default)<html>");
+    message.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
 
     fileTXTOrHere = new JComboBox<String>(list);
     fileTXTOrHere.addActionListener(this);
+    fileTXTOrHere.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
 
     // adding components
     frame.add(capitals);
@@ -75,6 +83,7 @@ public class PasswordCreator implements ActionListener{
     frame.add(buttonCreate);
 
     // making frame visible
+    SwingUtilities.updateComponentTreeUI(frame); // making this app autoresizable
     frame.setVisible(true);
     frame.setResizable(false);
   }
